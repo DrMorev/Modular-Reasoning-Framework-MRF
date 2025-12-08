@@ -1,0 +1,7 @@
+# Core dependencies
+pydantic>=2.0
+
+# Optional: LLM providers (install as needed)
+# google-generativeai>=0.3  # for Gemini Flash
+# openai>=1.0               # for GPT-4o-mini
+# anthropic>=0.18           # for Claude Haiku
