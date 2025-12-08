@@ -7,7 +7,7 @@ An external reasoning orchestration system for fast language models
 that implements structured chain-of-thought without model-internal reasoning traces.
 
 Authors:
-  - Hiro - Architecture, Implementation, Orchestration
+  - Segey Morev - Architecture, Implementation, Orchestration
   - Igor (GPT) - Orchestrator design, Safety improvements, Patches
   - Andrey (Claude Opus) - Production hardening, Research-grade refactoring
 
