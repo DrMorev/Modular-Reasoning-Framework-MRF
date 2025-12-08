@@ -134,6 +134,6 @@ MIT
 
 ## Author
 
-[Your Name] — Architecture, Implementation
+Sergey Morev — Architecture, Implementation
 
 With contributions from collaborative AI development process.
