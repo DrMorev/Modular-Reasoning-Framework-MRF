@@ -1,139 +1,54 @@
 # Modular Reasoning Framework (MRF)
 
-External reasoning orchestration system for fast language models.
+## Status: Historical closeout — July 2026
 
-## Problem
+MRF is inactive and unmaintained. It is retained as a historical source artifact and is not recommended for production or clinical use.
 
-Fast LLMs (Gemini Flash, GPT-4o-mini, Claude Haiku) are cost-effective but lack structured reasoning capabilities. Native chain-of-thought is either unavailable or expensive.
+## What MRF Was
 
-## Solution
+MRF began as an attempt to improve the quality of fast, inexpensive language models by decomposing problem solving into explicit external stages. The project was later explored as a possible architecture for privacy-sensitive, on-premise clinical environments where locally hosted small models and constrained compute could matter. No hospital integration, clinical workflow, privacy assessment, regulatory validation, or clinical deployment was completed.
 
-MRF provides an external reasoning scaffold that forces structured problem-solving:
+## Historical Architecture
+
+The historical design used the following six-stage architecture:
 
 ```
 SPECIFICATION → PLANNING → EXECUTION → VERIFICATION → REFLECTION → SYNTHESIS
 ```
 
-The model never "thinks out loud" — all reasoning happens through controlled JSON stages with external verification.
+This architecture is preserved as historical context. It combined structured model interactions with external checks where available; it did not establish a formal-verification system.
 
-## Key Features
+## Observed Technical Assets
 
-- **Safe math evaluation** — AST-based, no `eval()`, Decimal precision
-- **Self-consistency** — Multiple candidates with voting
-- **DAG validation** — Dependency checking, cycle detection
-- **Tool registry** — Pluggable external functions
-- **Quality gates** — Definition of Done (DoD) checks before output
-- **Experiment tracking** — Lightweight JSONL logger, no external dependencies
+The restored historical source contains an AST-gated arithmetic and logical evaluator, JSONL execution tracing, plan-dependency validation, a tool registry, provider dependency injection, a mock-provider pattern, and structured intermediate objects. These are observed code assets, not evidence of production readiness or validated performance.
 
-## Architecture
+## Evidence Boundary and Known Limitations
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     User Query                               │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│  SPEC: Define problem structure, constraints, outputs        │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│  PLAN: Break into steps, identify dependencies (DAG)         │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│  SOLVE: Execute steps (math via SafeEvaluator, tools)        │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│  VERIFY: Check results against constraints                   │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│  REFLECT: Model critiques own plan, patches if needed        │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│  EMIT: Synthesize verified results into final answer         │
-└─────────────────────────────────────────────────────────────┘
-```
+This repository contains no automated tests, benchmarks, clinical validation, security audit, or production-deployment receipts. The historical source is preserved for inspection, but this closeout does not establish current runtime behavior, safety, security, accuracy, or suitability for any deployment. In particular, MRF must not be used as a basis for clinical decisions or high-risk production workflows.
 
-## Installation
+## Why Active Development Stopped
 
-```bash
-pip install -r requirements.txt
-```
+Native model reasoning and mature agent runtimes reduced the value of a generic external multi-call reasoning scaffold. Iterative and recurrent inference also moved more reasoning inside the model: additional inference can improve some small-model outputs, but it introduces latency, diminishing returns, compute-budget, and termination-control concerns. The resulting direction was not to revive MRF, but to place explicit stopping rules, deterministic gates, receipts, and capability controls around model execution. That change does not mean that small or local models lost useful roles; it means this particular generalized architecture was no longer the project’s active direction.
 
-## Quick Start
+## Project Heritage
 
-```python
-from mrf import ReasoningOrchestrator, Config
+Within this portfolio, MRF is preserved as the first substantial self-directed AI engineering project and an early implementation of external orchestration principles. Its durable contribution was not the six-stage reasoning loop itself, but the transition toward execution-contour governance: bounded scope, observable state, deterministic checks, receipts, dependency review, and explicit human authorization.
 
-config = Config(
-    candidates=3,           # Self-consistency voting
-    max_reflect_loops=2,    # Reflection iterations
-    timeout_seconds=30
-)
+## Portfolio Lineage
 
-orchestrator = ReasoningOrchestrator(llm_provider, config)
-result = await orchestrator.solve("What is 15% of 847?")
-```
+The connection between MRF and later projects is a retrospective interpretation by the author, not evidence of proven causal lineage. Related later portfolio artifacts include:
 
-## Use Cases
+- [EBAC-T4 — Deterministic Trace-Bound Authorization for High-Risk EHR Writes](https://doi.org/10.5281/zenodo.21281597)
+- [Clinical Verifiable Gates (CVG)](https://doi.org/10.5281/zenodo.21328660)
 
-- **Math problems** — With external verification, not model arithmetic
-- **Multi-step reasoning** — Complex queries broken into dependency graph
-- **Batch processing** — Cost-effective reasoning at scale
-- **Education** — Explainable reasoning traces
+## Case Memo
 
-## Limitations
+The full historical and technical analysis is documented in the [MRF case memo](docs/CASE_MEMO_MRF.md), including the evolution from fast-model reasoning support to local clinical deployment hypotheses, model-native reasoning, recurrent inference, termination risks, and execution governance.
 
-- Adds latency (multiple LLM calls per query)
-- JSON parsing can fail on malformed model output
-- Not suitable for creative/open-ended tasks
+## License, Author, and Acknowledgments
 
-## Prior Art & Novelty
+Licensed under the [MIT License](LICENSE).
 
-A systematic search was conducted across arXiv, GitHub, and patent databases (November 2024).
+**Author:** Sergey Morev — project initiator, architecture, implementation, and project leadership.
 
-**Related work:**
-
-| Project | Similarity | Difference |
-|---------|------------|------------|
-| ReWOO (LangGraph) | Plan-Worker-Solver pattern | Not optimized for fast/cheap models |
-| OpenR | Test-time compute | Focused on RL training, not scaffolding |
-| Self-Consistency | Voting mechanism | No structured spec→plan→execute pipeline |
-| ART | Automatic reasoning steps | General purpose, not cost-optimized |
-
-**What MRF adds:**
-
-- **Cost-first design** — Explicitly targets Gemini Flash / GPT-4o-mini tier
-- **External safe evaluation** — Math computed via Python AST, not in model's "head"
-- **DoD quality gates** — Definition of Done checks before output
-- **Production focus** — Built for batch processing, not research demos
-
-**Novelty assessment:** 6.5-7.5/10 — Novel combination of established techniques for a specific underserved problem (cost-quality tradeoff in reasoning).
-
-**Patents:** No direct patents found on this approach.
-
-## References
-
-- Wei et al. (2022): Chain-of-Thought Prompting
-- Wang et al. (2023): Self-Consistency Improves Chain of Thought
-- Yao et al. (2023): Tree of Thoughts
-- Xu et al. (2023): ReWOO — Reasoning WithOut Observation
-
-## License
-
-MIT
-
-## Author
-
-Sergey Morev — Architecture, Implementation
-
-With contributions from collaborative AI development process.
+**Acknowledgments:** AI-assisted development and review involved GPT, Claude, and Gemini systems.

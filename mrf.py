@@ -3,19 +3,20 @@
 """
 Modular Reasoning Framework (MRF) v1.1
 ========================================
-An external reasoning orchestration system for fast language models
-that implements structured chain-of-thought without model-internal reasoning traces.
+An unvalidated historical prototype for external reasoning orchestration
+with fast language models. Preserved for archival review.
 
-Authors:
-  - Segey Morev - Architecture, Implementation, Orchestration
-  - Igor (GPT) - Orchestrator design, Safety improvements, Patches
-  - Andrey (Claude Opus) - Production hardening, Research-grade refactoring
+Author:
+  - Sergey Morev — Project Initiator, Architecture, Implementation, and Project Leadership
+
+Acknowledgments:
+  - AI-assisted development and review involved GPT, Claude, and Gemini systems.
 
 License: MIT
 
 Architecture:
     Specification → Planning → Execution → Verification → Reflection → Synthesis
-    with self-consistency voting, formal verification gates, and DAG validation.
+    with self-consistency voting, historical external checks, and DAG validation.
 
 References:
     - Wei et al. (2022): Chain-of-Thought Prompting

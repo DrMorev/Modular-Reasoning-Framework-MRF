@@ -5,15 +5,15 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mrf"
 version = "1.1.0"
-description = "Modular Reasoning Framework - External reasoning orchestration for fast LLMs"
+description = "Modular Reasoning Framework - Inactive historical prototype for external reasoning orchestration"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Hiro", email = "hiro@example.com"},
+    {name = "Sergey Morev"},
 ]
 keywords = ["llm", "reasoning", "chain-of-thought", "ai", "orchestration"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 7 - Inactive",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
@@ -45,9 +45,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/YOUR_USERNAME/mrf"
-Repository = "https://github.com/YOUR_USERNAME/mrf"
-Documentation = "https://github.com/YOUR_USERNAME/mrf#readme"
+Homepage = "https://github.com/DrMorev/Modular-Reasoning-Framework-MRF"
+Repository = "https://github.com/DrMorev/Modular-Reasoning-Framework-MRF"
+Documentation = "https://github.com/DrMorev/Modular-Reasoning-Framework-MRF#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]
